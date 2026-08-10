@@ -1,0 +1,16 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "transformIgnorePatterns": [
+    "/node_modules/(?!(ai|@ai-sdk|@workflow)/)"
+  ],
+  "moduleNameMapper": {
+    "^ai$": "<rootDir>/../node_modules/ai/dist/index.js",
+    "^@ai-sdk/(.*)$": "<rootDir>/../node_modules/@ai-sdk/$1/dist/index.js"
+  }
+}

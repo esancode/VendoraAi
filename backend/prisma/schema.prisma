@@ -1,0 +1,343 @@
+datasource db {
+  provider   = "postgresql"
+  extensions = [vector, uuid_ossp(map: "uuid-ossp")]
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+// Enums do Sistema
+enum UserRole {
+  ADMIN
+  AGENT
+}
+
+enum SaasPlan {
+  STARTER
+  GROWTH
+  ENTERPRISE
+}
+
+enum BillingStatus {
+  TRIAL
+  ACTIVE
+  OVERDUE
+  SUSPENDED
+}
+
+enum UserStatus {
+  PENDING_VERIFICATION
+  ACTIVE
+  LOCKED
+}
+
+enum ConnectionStatus {
+  DISCONNECTED
+  CONNECTING
+  QR_READY
+  CONNECTED
+}
+
+enum ConnectionType {
+  META_API
+  QRCODE
+}
+
+enum LeadStatus {
+  ACTIVE
+  COLD
+  LOST
+  WON
+  MANUAL_INTERVENTION_REQUIRED
+}
+
+enum ConversationStatus {
+  OPEN
+  CLOSED
+}
+
+enum MessageSender {
+  CUSTOMER
+  AGENT
+  SYSTEM
+}
+
+enum LossReason {
+  PRICE
+  DELIVERY
+  PRODUCT
+  COMPETITION
+  SERVICE
+  OTHER
+}
+
+// Entidades de Negócio (Isoladas por RLS)
+model Tenant {
+  id            String         @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name          String         @db.VarChar(100)
+  createdAt     DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime       @updatedAt @map("updated_at") @db.Timestamptz
+  onboardingCompleted Boolean    @default(false) @map("onboarding_completed")
+  
+  // Billing and Consumption
+  plan          SaasPlan       @default(STARTER)
+  billingStatus BillingStatus  @default(TRIAL) @map("billing_status")
+  trialEndsAt   DateTime?      @map("trial_ends_at") @db.Timestamptz
+  asaasCustomerId String?      @unique @map("asaas_customer_id")
+  messagesProcessedThisMonth Int @default(0) @map("messages_processed_this_month")
+  aiDraftsProcessedThisMonth Int @default(0) @map("ai_drafts_processed_this_month")
+  
+  // BYOK (Bring Your Own Key) - Encrypted fields
+  customGeminiApiKey String?   @db.Text @map("custom_gemini_api_key")
+  customOpenAiApiKey String?   @db.Text @map("custom_openai_api_key")
+  
+  users         User[]
+  leads         Lead[]
+  billingRules  BillingRule[]
+  usageLogs     UsageLog[]
+  agents        Agent[]
+  knowledgeSources KnowledgeSource[]
+  whatsappChannels WhatsAppChannel[]
+  invoices      BillingInvoice[]
+
+  @@map("tenants")
+}
+
+model User {
+  id           String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  email        String     @unique @db.VarChar(150)
+  passwordHash String     @map("password_hash") @db.VarChar(255)
+  name         String     @db.VarChar(100)
+  role         UserRole   @default(AGENT)
+  tenantId     String     @map("tenant_id") @db.Uuid
+  status       UserStatus @default(PENDING_VERIFICATION)
+  avatarUrl    String?    @map("avatar_url") @db.VarChar(500)
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime   @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant       Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assignedLeads Lead[]
+
+  @@index([tenantId])
+  @@map("users")
+}
+
+model Lead {
+  id               String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name             String       @db.VarChar(255)
+  phone            String       @db.VarChar(255)
+  status           LeadStatus   @default(ACTIVE)
+  tenantId         String       @map("tenant_id") @db.Uuid
+  assignedUserId   String?      @map("assigned_user_id") @db.Uuid
+  lastInteractionAt DateTime    @default(now()) @map("last_interaction_at") @db.Timestamptz
+  slaLimitAt       DateTime?    @map("sla_limit_at") @db.Timestamptz
+  needsHumanReview Boolean      @default(false) @map("needs_human_review")
+  conversationalSummary String? @map("conversational_summary") @db.Text
+  createdAt        DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime     @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant           Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assignedUser     User?        @relation(fields: [assignedUserId], references: [id], onDelete: SetNull)
+  conversations    Conversation[]
+
+  @@unique([tenantId, phone])
+  @@index([tenantId, status])
+  @@index([tenantId, assignedUserId])
+  @@index([slaLimitAt])
+  @@map("leads")
+}
+
+model Conversation {
+  id                 String             @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  leadId             String             @map("lead_id") @db.Uuid
+  tenantId           String             @map("tenant_id") @db.Uuid
+  agentId            String?            @map("agent_id") @db.Uuid
+  status             ConversationStatus @default(OPEN)
+  summary            String?            @db.Text
+  lossReason         LossReason?        @map("loss_reason")
+  lossReasonDetail   String?            @map("loss_reason_detail") @db.VarChar(255)
+  confidenceScore    Decimal?           @map("confidence_score") @db.Decimal(5, 4)
+  responseSlaSeconds Int?               @map("response_sla_seconds")
+  unmappedDemands    String[]           @map("unmapped_demands")
+  createdAt          DateTime           @default(now()) @map("created_at") @db.Timestamptz
+  closedAt           DateTime?          @map("closed_at") @db.Timestamptz
+
+  lead               Lead               @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  agent              Agent?             @relation(fields: [agentId], references: [id], onDelete: SetNull)
+  messages           Message[]
+
+  @@index([tenantId, status])
+  @@index([tenantId, lossReason])
+  @@index([agentId])
+  @@map("conversations")
+}
+
+model Message {
+  id             String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  conversationId String        @map("conversation_id") @db.Uuid
+  tenantId       String        @map("tenant_id") @db.Uuid
+  sender         MessageSender
+  rawContent     String?       @map("raw_content") @db.Text
+  maskedContent  String        @map("masked_content") @db.Text
+  createdAt      DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  responseTime   Int?          @map("response_time") @db.Integer
+
+  conversation   Conversation  @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  embeddings     MessageEmbedding[]
+
+  @@index([tenantId, createdAt])
+  @@index([conversationId])
+  @@map("messages")
+}
+
+model MessageEmbedding {
+  id         String                      @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  messageId  String                      @map("message_id") @db.Uuid
+  tenantId   String                      @map("tenant_id") @db.Uuid
+  embedding  Unsupported("vector(768)")
+  createdAt  DateTime                    @default(now()) @map("created_at") @db.Timestamptz
+
+  message    Message                     @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("message_embeddings")
+}
+
+model BillingRule {
+  id                 String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  tenantId           String   @unique @map("tenant_id") @db.Uuid
+  planType           String   @map("plan_type") @db.VarChar(30)
+  baseMonthlyPrice   Decimal  @map("base_monthly_price") @db.Decimal(10, 2)
+  messageLimit       Int      @map("message_limit") @db.Integer
+  tokenLimit         Int      @map("token_limit") @db.Integer
+  extraMessageRate   Decimal  @map("extra_message_rate") @db.Decimal(5, 4)
+  extraTokenRate     Decimal  @map("extra_token_rate") @db.Decimal(5, 4)
+  createdAt          DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt          DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant             Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@map("billing_rules")
+}
+
+model UsageLog {
+  id              String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  tenantId        String   @map("tenant_id") @db.Uuid
+  tokenCount      Int      @default(0) @map("token_count")
+  messageCount    Int      @default(0) @map("message_count")
+  billingPeriodYm String   @map("billing_period_ym") @db.VarChar(7)
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  tenant          Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, billingPeriodYm])
+  @@map("usage_logs")
+}
+
+model Agent {
+  id                 String         @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  tenantId           String         @map("tenant_id") @db.Uuid
+  name               String         @db.VarChar(100)
+  status             Boolean        @default(true)
+  onboardingAnswers  Json           
+  basePrompt         String?        @db.Text
+  temperature        Decimal        @default(0.7) @db.Decimal(2,1)
+  createdAt          DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt          DateTime       @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant             Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  examples           AgentExample[]
+  knowledgeSources   KnowledgeSource[]
+  knowledgeChunks    KnowledgeChunk[]
+  whatsappChannel    WhatsAppChannel?
+  conversations      Conversation[]
+
+  @@index([tenantId])
+  @@map("agents")
+}
+
+model AgentExample {
+  id               String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  agentId          String   @map("agent_id") @db.Uuid
+  tenantId         String   @map("tenant_id") @db.Uuid
+  userQuery        String   @map("user_query") @db.Text
+  expectedResponse String   @map("expected_response") @db.Text
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  agent            Agent    @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("agent_examples")
+}
+
+model KnowledgeSource {
+  id        String           @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  tenantId  String           @map("tenant_id") @db.Uuid
+  agentId   String           @map("agent_id") @db.Uuid
+  title     String           @db.VarChar(150)
+  content   String           @db.Text
+  createdAt DateTime         @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime         @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant    Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  agent     Agent            @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  chunks    KnowledgeChunk[]
+
+  @@index([tenantId])
+  @@index([agentId])
+  @@map("knowledge_sources")
+}
+
+model KnowledgeChunk {
+  id         String                      @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  sourceId   String                      @map("source_id") @db.Uuid
+  tenantId   String                      @map("tenant_id") @db.Uuid
+  agentId    String                      @map("agent_id") @db.Uuid
+  content    String                      @db.Text
+  embedding  Unsupported("vector(768)") // text-embedding-004 do Gemini
+  createdAt  DateTime                    @default(now()) @map("created_at") @db.Timestamptz
+
+  source     KnowledgeSource             @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  agent      Agent                       @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([agentId])
+  @@map("knowledge_chunks")
+}
+
+model WhatsAppChannel {
+  id               String           @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  tenantId         String           @map("tenant_id") @db.Uuid
+  name             String           @default("WhatsApp") @db.VarChar(100)
+  phoneNumber      String           @unique @map("phone_number") @db.VarChar(20) // Ex: +5511999999999
+  agentId          String?          @unique @map("agent_id") @db.Uuid // Agente opcional vinculado
+  connectionStatus ConnectionStatus @default(DISCONNECTED) @map("connection_status")
+  sessionData      String?          @map("session_data") @db.Text // JSON criptografado com as chaves do WhatsApp Web
+  createdAt        DateTime         @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime         @updatedAt @map("updated_at") @db.Timestamptz
+
+  tenant           Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  agent            Agent?           @relation(fields: [agentId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@map("whatsapp_channels")
+}
+
+model BillingInvoice {
+  id            String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  tenantId      String    @map("tenant_id") @db.Uuid
+  amount        Decimal   @db.Decimal(10, 2)
+  status        String    @db.VarChar(50) // PAID, PENDING, OVERDUE
+  paymentMethod String    @map("payment_method") @db.VarChar(50) // PIX, BOLETO, CREDIT_CARD
+  invoiceUrl    String?   @map("invoice_url") @db.VarChar(500)
+  dueDate       DateTime  @map("due_date") @db.Timestamptz
+  paidAt        DateTime? @map("paid_at") @db.Timestamptz
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  tenant        Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("billing_invoices")
+}
