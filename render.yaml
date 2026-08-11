@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: vendora-api
+    env: docker
+    region: ohio
+    plan: free
+    rootDir: backend
+    healthCheckPath: /api/v1/billing/status # Rota leve para healthcheck
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: vendora-db
+          property: connectionString
+      - key: DIRECT_DATABASE_URL
+        fromDatabase:
+          name: vendora-db
+          property: connectionString
+      - key: REDIS_URL
+        sync: false # Você vai precisar preencher isso no painel do Render (Recomendo pegar uma URL gratuita no Upstash)
+      - key: REDIS_HOST
+        sync: false 
+      - key: REDIS_PORT
+        sync: false
+      - key: REDIS_PASSWORD
+        sync: false
+      - key: DATA_ENCRYPTION_KEY
+        sync: false # Preencha no painel
+      - key: ASAAS_API_KEY
+        sync: false # Preencha no painel
+      - key: ASAAS_WEBHOOK_TOKEN
+        sync: false # Preencha no painel
+      - key: GEMINI_API_KEY
+        sync: false # Preencha no painel
+
+databases:
+  - name: vendora-db
+    region: ohio
+    plan: free
+    databaseName: vendora
+    user: vendora_user
