@@ -43,6 +43,7 @@ RUN apk add --no-cache python3 make g++ && \
 COPY --from=builder /usr/src/app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /usr/src/app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder /usr/src/app/prisma ./prisma
+COPY prisma.config.ts ./
 
 # Copiar o diretório de build
 COPY --from=builder /usr/src/app/dist ./dist
