@@ -33,8 +33,11 @@ WORKDIR /usr/src/app
 # Copiar o package.json e package-lock.json para instalar apenas prod deps
 COPY package.json package-lock.json ./
 
-# Instalar apenas dependências de produção para manter a imagem leve
-RUN npm ci --only=production && npm cache clean --force
+# Instalar dependências de compilação temporariamente para pacotes nativos (como argon2), instalar módulos e limpar
+RUN apk add --no-cache python3 make g++ && \
+    npm ci --only=production && \
+    apk del python3 make g++ && \
+    npm cache clean --force
 
 # Copiar o Prisma gerado (node_modules/.prisma) e schemas
 COPY --from=builder /usr/src/app/node_modules/.prisma ./node_modules/.prisma
