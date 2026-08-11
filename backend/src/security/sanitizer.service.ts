@@ -12,11 +12,16 @@ export class SanitizerService implements OnModuleInit, OnModuleDestroy {
   private readonly creditCardRegex = /\b(?:\d{4}[ -]?){3}\d{3,4}\b|\b\d{13,16}\b/g;
 
   onModuleInit() {
-    this.redisClient = new Redis({
-      host: process.env.REDIS_HOST || 'localhost',
-      port: parseInt(process.env.REDIS_PORT || '6379', 10),
-      db: 2, // Using DB 2 for temporary mapping
-    });
+    const redisUrl = process.env.REDIS_URL;
+    if (redisUrl) {
+      this.redisClient = new Redis(redisUrl, { db: 2 });
+    } else {
+      this.redisClient = new Redis({
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379', 10),
+        db: 2, // Using DB 2 for temporary mapping
+      });
+    }
   }
 
   onModuleDestroy() {

@@ -23,6 +23,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ChatsModule } from './chats/chats.module';
 
+import { Redis } from 'ioredis';
+
 @Module({
   imports: [
     PrismaModule,
@@ -30,11 +32,13 @@ import { ChatsModule } from './chats/chats.module';
     AuthModule,
     ScheduleModule.forRoot(),
     BullModule.forRoot({
-      connection: {
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT || '6379', 10),
-        db: 1, // BullMQ uses DB 1 as specified
-      },
+      connection: process.env.REDIS_URL 
+        ? new Redis(process.env.REDIS_URL, { maxRetriesPerRequest: null })
+        : {
+            host: process.env.REDIS_HOST || 'localhost',
+            port: parseInt(process.env.REDIS_PORT || '6379', 10),
+            db: 1, // BullMQ uses DB 1 as specified
+          },
     }),
     WebhooksModule,
     IntelligenceModule,
