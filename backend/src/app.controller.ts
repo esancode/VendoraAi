@@ -19,4 +19,9 @@ export class AppController {
   apiHealthCheck() {
     return { status: 'ok', timestamp: new Date().toISOString() };
   }
+
+  @Get('ping')
+  ping() {
+    return 'pong';
+  }
 }
