@@ -14,14 +14,19 @@ export class SanitizerService implements OnModuleInit, OnModuleDestroy {
   onModuleInit() {
     const redisUrl = process.env.REDIS_URL;
     if (redisUrl) {
-      this.redisClient = new Redis(redisUrl); // Upstash supports only DB 0
+      this.redisClient = new Redis(redisUrl, { maxRetriesPerRequest: null }); // Upstash only supports DB 0
     } else {
       this.redisClient = new Redis({
         host: process.env.REDIS_HOST || 'localhost',
         port: parseInt(process.env.REDIS_PORT || '6379', 10),
-        db: 2, // Using DB 2 for temporary mapping
+        db: 2, // Using DB 2 for rate limiting as well (or another DB if preferred)
+        maxRetriesPerRequest: null,
       });
     }
+
+    this.redisClient.on('error', (err) => {
+      console.error('[SanitizerService] Redis Error:', err.message);
+    });
   }
 
   onModuleDestroy() {
