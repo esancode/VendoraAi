@@ -70,7 +70,8 @@ export const OnboardingWizard = () => {
   };
 
   const handleGoogleSSO = () => {
-    window.location.href = 'http://localhost:3000/api/v1/auth/google';
+    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
+    window.location.href = `${baseUrl}/auth/google`;
   };
 
   return (
