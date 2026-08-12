@@ -81,7 +81,8 @@ export class AuthController {
     const { accessToken, refreshToken, tenantId } = await this.authService.googleLogin(req.user);
     this.setRefreshTokenCookie(res, refreshToken);
     
-    return { url: `http://localhost:5173/auth-success?token=${accessToken}`, statusCode: 302 };
+    const frontendUrl = this.configService.get<string>('FRONTEND_URL') || 'http://localhost:5173';
+    return { url: `${frontendUrl}/auth-success?token=${accessToken}`, statusCode: 302 };
   }
 
   @Post('refresh')
