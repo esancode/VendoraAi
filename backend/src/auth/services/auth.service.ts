@@ -125,16 +125,15 @@ export class AuthService {
 
   async googleLogin(profile: any): Promise<{ accessToken: string; refreshToken: string; user: any; tenantId: string }> {
     const { email, fullName, avatarUrl } = profile;
-    const redisClient = this.redisService.getClient();
+    
+    return await this.prisma.runInTenantContext('', async (prisma) => {
+      let user: any = await prisma.user.findUnique({
+        where: { email },
+        include: { tenant: true },
+      });
 
-    let user: any = await this.prisma.user.findUnique({
-      where: { email },
-      include: { tenant: true },
-    });
-
-    if (!user) {
-      // User doesn't exist, create Tenant and User
-      user = await this.prisma.$transaction(async (prisma) => {
+      if (!user) {
+        // User doesn't exist, create Tenant and User
         const tenant = await prisma.tenant.create({
           data: {
             name: `Empresa de ${fullName}`,
@@ -150,43 +149,43 @@ export class AuthService {
         // Set RLS context for the transaction so the user insertion is permitted
         await prisma.$executeRawUnsafe(`SET LOCAL app.current_tenant_id = '${tenant.id}';`);
 
-        return await prisma.user.create({
+        user = await prisma.user.create({
           data: {
             email,
             name: fullName,
             passwordHash: 'oauth_managed', // password is not used for oauth
             avatarUrl,
-            role: UserRole.ADMIN,
+            role: 'ADMIN',
             tenantId: tenant.id,
             status: 'ACTIVE',
           },
           include: { tenant: true },
         });
-      });
-    } else {
-      // Update avatar if missing or changed
-      if (avatarUrl && user.avatarUrl !== avatarUrl) {
-        user = await this.prisma.user.update({
-          where: { id: user.id },
-          data: { avatarUrl },
-          include: { tenant: true }
-        });
+      } else {
+        // Update avatar if missing or changed
+        if (avatarUrl && user.avatarUrl !== avatarUrl) {
+          user = await prisma.user.update({
+            where: { id: user.id },
+            data: { avatarUrl },
+            include: { tenant: true }
+          });
+        }
+
+        if (user.status === 'LOCKED') {
+          throw new UnauthorizedException('Conta bloqueada por segurança.');
+        }
+        if (user.status === 'PENDING_VERIFICATION') {
+          // If they verify via Google, we can mark them active
+          user = await prisma.user.update({
+            where: { id: user.id },
+            data: { status: 'ACTIVE' },
+            include: { tenant: true }
+          });
+        }
       }
 
-      if (user.status === 'LOCKED') {
-        throw new UnauthorizedException('Conta bloqueada por segurança.');
-      }
-      if (user.status === 'PENDING_VERIFICATION') {
-        // If they verify via Google, we can mark them active
-        user = await this.prisma.user.update({
-          where: { id: user.id },
-          data: { status: 'ACTIVE' },
-          include: { tenant: true }
-        });
-      }
-    }
-
-    return this.generateTokensExt(user.id, user.tenantId, user.role, user.name);
+      return this.generateTokensExt(user.id, user.tenantId, user.role, user.name);
+    });
   }
 
   async verifyCode(email: string, code: string) {
