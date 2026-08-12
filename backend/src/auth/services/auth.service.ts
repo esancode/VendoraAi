@@ -147,6 +147,10 @@ export class AuthService {
           },
         });
 
+        // Set RLS context for the transaction so the user insertion is permitted
+        await prisma.$executeRawUnsafe(`SET LOCAL ROLE app_user;`);
+        await prisma.$executeRawUnsafe(`SET LOCAL app.current_tenant_id = '${tenant.id}';`);
+
         return await prisma.user.create({
           data: {
             email,
