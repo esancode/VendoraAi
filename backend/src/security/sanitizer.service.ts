@@ -14,7 +14,7 @@ export class SanitizerService implements OnModuleInit, OnModuleDestroy {
   onModuleInit() {
     const redisUrl = process.env.REDIS_URL;
     if (redisUrl) {
-      this.redisClient = new Redis(redisUrl, { db: 2 });
+      this.redisClient = new Redis(redisUrl); // Upstash supports only DB 0
     } else {
       this.redisClient = new Redis({
         host: process.env.REDIS_HOST || 'localhost',
