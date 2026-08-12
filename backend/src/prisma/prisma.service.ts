@@ -35,7 +35,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   ): Promise<T> {
     return this.$transaction(async (tx) => {
       // Define a variável de sessão (LOCAL ao bloco da transação atual)
-      await tx.$executeRawUnsafe(`SET LOCAL ROLE app_user;`);
       await tx.$executeRawUnsafe(`SET LOCAL app.current_tenant_id = '${tenantId}';`);
       return op(tx);
     });
