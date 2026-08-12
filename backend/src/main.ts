@@ -5,6 +5,29 @@ import fastifyCookie from '@fastify/cookie';
 import rawBody from 'fastify-raw-body';
 import { RedisIoAdapter } from './notifications/redis-io.adapter';
 
+import { Catch, ArgumentsHost, Logger, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
+
+@Catch()
+class AllExceptionsFilter implements ExceptionFilter {
+  private readonly logger = new Logger('ExceptionsHandler');
+
+  catch(exception: unknown, host: ArgumentsHost) {
+    this.logger.error('Unhandled exception caught:', exception);
+    
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse();
+    
+    const status = exception instanceof HttpException 
+      ? exception.getStatus() 
+      : HttpStatus.INTERNAL_SERVER_ERROR;
+      
+    response.status(status).send({
+      statusCode: status,
+      message: exception instanceof Error ? exception.message : 'Internal server error',
+    });
+  }
+}
+
 async function bootstrap() {
   process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);
@@ -18,6 +41,8 @@ async function bootstrap() {
     new FastifyAdapter(),
     { cors: { origin: true, credentials: true } }
   );
+
+  app.useGlobalFilters(new AllExceptionsFilter());
 
   await app.register(fastifyCookie as any, {
     secret: process.env.COOKIE_SECRET || 'vendora-cookie-secret',
