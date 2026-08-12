@@ -29,7 +29,6 @@ async function bootstrap() {
 
   const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
   await app.listen(port, '0.0.0.0');
-  console.log(`Application is running on port ${port} / url: ${await app.getUrl()}`);
 }
 bootstrap();
 // Trigger rebuild for AgentController
