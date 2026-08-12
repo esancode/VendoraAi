@@ -6,7 +6,7 @@ import * as z from 'zod';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../../context/AuthContext';
 import { Spinner } from '../../../components/feedback/Spinner';
-import { api } from '../../../services/api';
+import { api, baseURL } from '../../../services/api';
 
 const GoogleIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg">
@@ -70,8 +70,7 @@ export const OnboardingWizard = () => {
   };
 
   const handleGoogleSSO = () => {
-    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
-    window.location.href = `${baseUrl}/auth/google`;
+    window.location.href = `${baseURL}/auth/google`;
   };
 
   return (

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
 import { Spinner } from '../../../components/feedback/Spinner';
 import toast from 'react-hot-toast';
-import { api } from '../../../services/api';
+import { api, baseURL } from '../../../services/api';
 
 type AuthView = 'SIGN_IN' | 'FORGOT_PASSWORD' | 'ENTER_CODE' | 'RESET_PASSWORD';
 
@@ -29,8 +29,7 @@ export const LoginForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleGoogleSSO = () => {
-    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
-    window.location.href = `${baseUrl}/auth/google`;
+    window.location.href = `${baseURL}/auth/google`;
   };
 
   const handleLogin = async (e: React.FormEvent) => {
