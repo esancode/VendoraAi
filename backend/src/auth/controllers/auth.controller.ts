@@ -127,7 +127,7 @@ export class AuthController {
     res.setCookie('refresh_token', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: 'none',
       path: '/api/v1/auth/refresh',
       maxAge: 7 * 24 * 60 * 60, // 7 days
     });
