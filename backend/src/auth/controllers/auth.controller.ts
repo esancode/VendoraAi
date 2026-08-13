@@ -119,7 +119,7 @@ export class AuthController {
       await this.authService.logout(tenantContext.userId, tenantContext.tenantId, refreshToken);
     }
     res.clearCookie('refresh_token', {
-      path: '/api/v1/auth/refresh',
+      path: '/',
     });
   }
 
@@ -128,7 +128,7 @@ export class AuthController {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'none',
-      path: '/api/v1/auth/refresh',
+      path: '/',
       maxAge: 7 * 24 * 60 * 60, // 7 days
     });
   }
