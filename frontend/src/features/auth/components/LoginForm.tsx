@@ -104,6 +104,9 @@ export const LoginForm = () => {
       <div className="w-full max-w-sm p-8 bg-[#000000] rounded-sm border border-zinc-800 shadow-2xl">
         
         <div className="text-center mb-8">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-md overflow-hidden flex items-center justify-center">
+            <img src="/favicon.png" alt="Sifto Logo" className="w-full h-full object-cover" />
+          </div>
           <h2 className="text-2xl font-bold text-white tracking-tight ">Sifto</h2>
           <p className="mt-2 text-xs text-zinc-500 ">
             {currentView === 'SIGN_IN' && 'Acesse seu workspace'}

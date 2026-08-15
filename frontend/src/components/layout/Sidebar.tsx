@@ -21,7 +21,7 @@ export const Sidebar = () => {
     <aside className="hidden md:flex w-64 flex-col bg-zinc-950 border-r border-zinc-800 h-screen sticky top-0">
       <div className="p-6">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded overflow-hidden flex items-center justify-center">
+          <div className="w-10 h-10 rounded overflow-hidden flex items-center justify-center">
             <img src="/favicon.png" alt="Sifto" className="w-full h-full object-cover" />
           </div>
           <span className="text-xl font-bold text-zinc-100 tracking-tight">Sifto</span>
