@@ -19,8 +19,8 @@
   --color-card: #09090b; /* zinc-950 */
   --color-card-foreground: #ffffff; /* zinc-50 */
   --color-foreground: #ffffff; /* zinc-50 */
-  --color-primary: #059669; /* emerald-600 */
-  --color-primary-hover: #047857; /* emerald-700 */
+  --color-primary: var(--color-sifto-cobalt); 
+  --color-primary-hover: var(--color-sifto-cobalt-dark);
   --color-destructive: #dc2626; /* red-600 */
   --color-destructive-hover: #b91c1c; /* red-700 */
   --color-warning: #f59e0b; /* amber-500 */

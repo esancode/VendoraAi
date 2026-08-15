@@ -94,7 +94,7 @@ export const PlanSelector: React.FC = () => {
             <ul className="flex-1 space-y-3 mb-8">
               {plan.features.map((feature, i) => (
                 <li key={i} className="flex items-start text-sm text-zinc-400">
-                  <svg className="w-4 h-4 text-emerald-500 mr-2 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-4 h-4 text-sifto-cobalt mr-2 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   {feature}

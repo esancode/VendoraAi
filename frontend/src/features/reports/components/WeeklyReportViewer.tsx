@@ -92,7 +92,7 @@ Perda estimada de R$ 4.500,00 em faturamento semanal devido à desistência na e
         
         return (
           <h3 key={index} className="flex items-center gap-2 font-bold text-zinc-300 mt-6 mb-2 text-lg">
-            <Icon className="w-5 h-5 text-emerald-400" />
+            <Icon className="w-5 h-5 text-sifto-cobalt-light" />
             {content}
           </h3>
         );
@@ -116,7 +116,7 @@ Perda estimada de R$ 4.500,00 em faturamento semanal devido à desistência na e
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
       <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-3 text-emerald-400 mb-2">
+          <div className="flex items-center gap-3 text-sifto-cobalt-light mb-2">
             <FileText className="w-8 h-8" />
             <h1 className="text-2xl font-bold text-white tracking-tight">Relatório de Inteligência</h1>
           </div>
@@ -128,7 +128,7 @@ Perda estimada de R$ 4.500,00 em faturamento semanal devido à desistência na e
         <button
           onClick={handleDownloadPdf}
           disabled={isDownloading || isLoading}
-          className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-6 py-3 rounded transition-colors disabled:opacity-50"
+          className="flex items-center justify-center gap-2 bg-sifto-cobalt-dark hover:bg-sifto-cobalt text-white font-medium px-6 py-3 rounded transition-colors disabled:opacity-50"
         >
           {isDownloading ? (
             <Loader2 className="w-5 h-5 animate-spin" />

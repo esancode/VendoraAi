@@ -56,7 +56,7 @@ export const BusinessOnboardingQuiz = () => {
           <h2 className="text-xl font-bold tracking-tight mb-2">Configuração do Agente (Passo {step}/5)</h2>
           <div className="w-full bg-zinc-900 h-1 rounded-sm mt-4">
             <div 
-              className="bg-emerald-500 h-1 rounded-sm transition-all duration-300"
+              className="bg-sifto-cobalt h-1 rounded-sm transition-all duration-300"
               style={{ width: `${(step / 5) * 100}%` }}
             ></div>
           </div>
@@ -69,7 +69,7 @@ export const BusinessOnboardingQuiz = () => {
               <p className="text-xs text-zinc-500 mb-4">Ex: Ótica, Imobiliária, E-commerce de moda...</p>
               <input
                 type="text"
-                className="w-full px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-emerald-500 focus:outline-none transition-colors text-sm"
+                className="w-full px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-sifto-cobalt focus:outline-none transition-colors text-sm"
                 placeholder="Digite o nicho principal"
                 value={formData.niche}
                 onChange={e => setFormData({ ...formData, niche: e.target.value })}
@@ -87,7 +87,7 @@ export const BusinessOnboardingQuiz = () => {
                   <label className="block text-xs text-zinc-500 mb-1">Abertura</label>
                   <input
                     type="time"
-                    className="w-full px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-emerald-500 focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-sifto-cobalt focus:outline-none transition-colors text-sm"
                     value={formData.businessHours.start}
                     onChange={e => setFormData({ ...formData, businessHours: { ...formData.businessHours, start: e.target.value } })}
                   />
@@ -96,7 +96,7 @@ export const BusinessOnboardingQuiz = () => {
                   <label className="block text-xs text-zinc-500 mb-1">Fechamento</label>
                   <input
                     type="time"
-                    className="w-full px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-emerald-500 focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-sifto-cobalt focus:outline-none transition-colors text-sm"
                     value={formData.businessHours.end}
                     onChange={e => setFormData({ ...formData, businessHours: { ...formData.businessHours, end: e.target.value } })}
                   />
@@ -106,7 +106,7 @@ export const BusinessOnboardingQuiz = () => {
                 <label className="block text-xs text-zinc-500 mb-1">Dias úteis</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-emerald-500 focus:outline-none transition-colors text-sm"
+                  className="w-full px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-sifto-cobalt focus:outline-none transition-colors text-sm"
                   placeholder="Ex: Segunda a Sexta"
                   value={formData.businessHours.days}
                   onChange={e => setFormData({ ...formData, businessHours: { ...formData.businessHours, days: e.target.value } })}
@@ -120,7 +120,7 @@ export const BusinessOnboardingQuiz = () => {
               <label className="block text-sm font-semibold">3. Políticas de Envio & Frete</label>
               <p className="text-xs text-zinc-500 mb-4">Regras básicas de entrega para instruir o agente.</p>
               <textarea
-                className="w-full h-32 px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-emerald-500 focus:outline-none transition-colors text-sm resize-none"
+                className="w-full h-32 px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-sifto-cobalt focus:outline-none transition-colors text-sm resize-none"
                 placeholder="Ex: Entregamos em até 2 dias úteis para SP. Frete grátis acima de R$ 200."
                 value={formData.shippingRules}
                 onChange={e => setFormData({ ...formData, shippingRules: e.target.value })}
@@ -133,7 +133,7 @@ export const BusinessOnboardingQuiz = () => {
               <label className="block text-sm font-semibold">4. Formas de Pagamento</label>
               <p className="text-xs text-zinc-500 mb-4">Aceita PIX com desconto? Parcelamento em até quantas vezes?</p>
               <textarea
-                className="w-full h-32 px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-emerald-500 focus:outline-none transition-colors text-sm resize-none"
+                className="w-full h-32 px-4 py-3 bg-[#09090B] border border-zinc-800 rounded-sm focus:border-sifto-cobalt focus:outline-none transition-colors text-sm resize-none"
                 placeholder="Ex: Aceitamos PIX com 5% de desconto, e parcelamos em até 10x sem juros no cartão."
                 value={formData.paymentMethods}
                 onChange={e => setFormData({ ...formData, paymentMethods: e.target.value })}
@@ -147,7 +147,7 @@ export const BusinessOnboardingQuiz = () => {
                 <span>5. Principais FAQs</span>
                 <button 
                   onClick={addFaq}
-                  className="text-xs text-emerald-500 hover:text-emerald-400 font-bold"
+                  className="text-xs text-sifto-cobalt hover:text-sifto-cobalt-light font-bold"
                 >
                   + Adicionar Pergunta
                 </button>
@@ -159,7 +159,7 @@ export const BusinessOnboardingQuiz = () => {
                   <div key={index} className="space-y-2 p-4 bg-[#09090B] border border-zinc-800 rounded-sm">
                     <input
                       type="text"
-                      className="w-full px-3 py-2 bg-transparent border-b border-zinc-800 focus:border-emerald-500 focus:outline-none transition-colors text-sm"
+                      className="w-full px-3 py-2 bg-transparent border-b border-zinc-800 focus:border-sifto-cobalt focus:outline-none transition-colors text-sm"
                       placeholder="Pergunta (ex: Vocês têm loja física?)"
                       value={faq.question}
                       onChange={e => handleFaqChange(index, 'question', e.target.value)}
@@ -198,7 +198,7 @@ export const BusinessOnboardingQuiz = () => {
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="flex-1 flex justify-center items-center px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-sm text-sm font-bold transition-colors ml-auto disabled:opacity-50"
+              className="flex-1 flex justify-center items-center px-6 py-3 bg-sifto-cobalt-dark hover:bg-sifto-cobalt text-white rounded-sm text-sm font-bold transition-colors ml-auto disabled:opacity-50"
             >
               {isSubmitting ? <Spinner size="sm" /> : 'Finalizar e Treinar IA'}
             </button>

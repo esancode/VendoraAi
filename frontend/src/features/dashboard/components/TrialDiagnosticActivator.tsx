@@ -63,13 +63,13 @@ export const TrialDiagnosticActivator: React.FC = () => {
         <div className="p-4 bg-black text-xs flex flex-col gap-2 min-h-[140px]">
           {logs.map((log, i) => (
             <div key={i} className="text-zinc-400 animate-pulse">
-              <span className="text-emerald-500 mr-2">{'>'}</span>
+              <span className="text-sifto-cobalt mr-2">{'>'}</span>
               {log}
             </div>
           ))}
           {logs.length < 4 && (
             <div className="text-zinc-600 animate-pulse">
-              <span className="text-emerald-500 mr-2">{'>'}</span>
+              <span className="text-sifto-cobalt mr-2">{'>'}</span>
               _
             </div>
           )}

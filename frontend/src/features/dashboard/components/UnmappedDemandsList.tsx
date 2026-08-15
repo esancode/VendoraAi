@@ -27,7 +27,7 @@ export const UnmappedDemandsList: React.FC = () => {
           <div key={i} className="flex flex-col gap-1 p-3 border border-zinc-800/50 rounded-sm bg-black/50">
             <div className="flex justify-between items-start">
               <span className="text-sm font-sans text-zinc-300">{demand.term}</span>
-              <span className="text-[10px] font-medium text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded-sm border border-emerald-500/20">
+              <span className="text-[10px] font-medium text-sifto-cobalt bg-sifto-cobalt/10 px-1.5 py-0.5 rounded-sm border border-sifto-cobalt/20">
                 [NOVA_OPORTUNIDADE]
               </span>
             </div>

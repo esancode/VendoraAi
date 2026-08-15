@@ -40,7 +40,7 @@ export const ChatContainer: React.FC = () => {
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-6 h-[calc(100vh)] flex flex-col">
       <header className="shrink-0">
-        <div className="flex items-center gap-3 text-emerald-400 mb-2">
+        <div className="flex items-center gap-3 text-sifto-cobalt-light mb-2">
           <MessageSquare className="w-8 h-8" />
           <h1 className="text-2xl font-bold text-white tracking-tight">Copiloto e Atendimento</h1>
         </div>
@@ -72,7 +72,7 @@ export const ChatContainer: React.FC = () => {
                 setSelectedAgentId(e.target.value);
                 setActiveLead(null); // Reset active lead when switching agent filter
               }}
-              className="w-full bg-black border border-zinc-800 rounded px-3 py-2 text-sm text-zinc-300 focus:outline-none focus:border-emerald-500 transition-colors"
+              className="w-full bg-black border border-zinc-800 rounded px-3 py-2 text-sm text-zinc-300 focus:outline-none focus:border-sifto-cobalt transition-colors"
             >
               <option value="">Todos os Agentes</option>
               {agents?.map((agent: any) => (
@@ -127,7 +127,7 @@ export const ChatContainer: React.FC = () => {
               </button>
               <div className="flex-1 min-w-0">
                 <h3 className="font-medium text-zinc-300 truncate">{activeLead.name}</h3>
-                <span className="text-xs text-emerald-400">Atendimento Ativo</span>
+                <span className="text-xs text-sifto-cobalt-light">Atendimento Ativo</span>
               </div>
             </div>
 

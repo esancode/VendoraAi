@@ -100,7 +100,7 @@ export const KnowledgeManager = () => {
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
       <header className="mb-8">
-        <div className="flex items-center gap-3 text-emerald-400 mb-2">
+        <div className="flex items-center gap-3 text-sifto-cobalt-light mb-2">
           <Database className="w-8 h-8" />
           <h1 className="text-2xl font-bold text-white tracking-tight">RAG Document Manager</h1>
         </div>
@@ -118,7 +118,7 @@ export const KnowledgeManager = () => {
         <select
           value={selectedAgentId}
           onChange={(e) => setSelectedAgentId(e.target.value)}
-          className="w-full bg-black border border-zinc-800 rounded px-4 py-3 text-zinc-300 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
+          className="w-full bg-black border border-zinc-800 rounded px-4 py-3 text-zinc-300 focus:outline-none focus:border-sifto-cobalt focus:ring-1 focus:ring-sifto-cobalt transition-all"
         >
           <option value="">-- Selecione um agente --</option>
           {agents?.map((agent: any) => (
@@ -138,7 +138,7 @@ export const KnowledgeManager = () => {
         {/* Formulario */}
         <section className="bg-zinc-950 border border-zinc-800 rounded-md p-6 ">
           <h2 className="text-lg font-semibold text-zinc-300 mb-4 flex items-center gap-2">
-            <Plus className="w-5 h-5 text-emerald-400" />
+            <Plus className="w-5 h-5 text-sifto-cobalt-light" />
             Nova Fonte de Conhecimento
           </h2>
           
@@ -153,7 +153,7 @@ export const KnowledgeManager = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Ex: Política de Trocas e Devoluções"
-                className="w-full bg-black border border-zinc-800 rounded px-4 py-3 text-zinc-300 placeholder:text-zinc-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
+                className="w-full bg-black border border-zinc-800 rounded px-4 py-3 text-zinc-300 placeholder:text-zinc-600 focus:outline-none focus:border-sifto-cobalt focus:ring-1 focus:ring-sifto-cobalt transition-all"
                 disabled={createMutation.isPending}
               />
             </div>
@@ -168,7 +168,7 @@ export const KnowledgeManager = () => {
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Cole aqui as regras de negócio em texto limpo ou markdown..."
                 rows={8}
-                className="w-full bg-black border border-zinc-800 rounded px-4 py-3 text-zinc-300 placeholder:text-zinc-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all resize-none"
+                className="w-full bg-black border border-zinc-800 rounded px-4 py-3 text-zinc-300 placeholder:text-zinc-600 focus:outline-none focus:border-sifto-cobalt focus:ring-1 focus:ring-sifto-cobalt transition-all resize-none"
                 disabled={createMutation.isPending}
               />
             </div>
@@ -176,7 +176,7 @@ export const KnowledgeManager = () => {
             <button
               type="submit"
               disabled={createMutation.isPending || !selectedAgentId}
-              className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-6 py-3 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 bg-sifto-cobalt-dark hover:bg-sifto-cobalt text-white font-medium px-6 py-3 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {createMutation.isPending ? (
                 <>
@@ -231,8 +231,8 @@ export const KnowledgeManager = () => {
                     
                     {/* Status Badge */}
                     {source.status === 'COMPLETED' ? (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-sifto-cobalt/10 text-sifto-cobalt-light border border-sifto-cobalt/20">
+                        <span className="w-1.5 h-1.5 rounded-full bg-sifto-cobalt-light"></span>
                         Vetorizado ({source.chunkCount || 0} Chunks)
                       </span>
                     ) : source.status === 'PROCESSING' ? (

@@ -139,7 +139,7 @@ export const LoginForm = () => {
                   <label className="block text-xs font-medium text-zinc-400 mb-1" htmlFor="email">E-mail</label>
                   <input
                     id="email" type="email" required
-                    className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors "
+                    className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-sifto-cobalt transition-colors "
                     placeholder="seu@email.com"
                     value={email} onChange={(e) => setEmail(e.target.value)}
                   />
@@ -147,11 +147,11 @@ export const LoginForm = () => {
                 <div>
                   <div className="flex justify-between items-center mb-1">
                     <label className="block text-xs font-medium text-zinc-400" htmlFor="password">Senha</label>
-                    <button type="button" onClick={() => setCurrentView('FORGOT_PASSWORD')} className="text-xs text-emerald-500 hover:text-emerald-400 transition-colors ">Esqueceu a senha?</button>
+                    <button type="button" onClick={() => setCurrentView('FORGOT_PASSWORD')} className="text-xs text-sifto-cobalt hover:text-sifto-cobalt-light transition-colors ">Esqueceu a senha?</button>
                   </div>
                   <input
                     id="password" type="password" required
-                    className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors "
+                    className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-sifto-cobalt transition-colors "
                     placeholder="••••••••"
                     value={password} onChange={(e) => setPassword(e.target.value)}
                   />
@@ -164,7 +164,7 @@ export const LoginForm = () => {
 
             <div className="text-center mt-6 text-xs text-zinc-500 ">
               Não possui uma conta?{' '}
-              <button onClick={() => navigate('/register')} className="font-medium text-emerald-500 hover:text-emerald-400 transition-colors">
+              <button onClick={() => navigate('/register')} className="font-medium text-sifto-cobalt hover:text-sifto-cobalt-light transition-colors">
                 Cadastre-se
               </button>
             </div>
@@ -177,7 +177,7 @@ export const LoginForm = () => {
               <label className="block text-xs font-medium text-zinc-400 mb-1">E-mail cadastrado</label>
               <input
                 type="email" required
-                className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors "
+                className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-sifto-cobalt transition-colors "
                 placeholder="seu@email.com"
                 value={email} onChange={(e) => setEmail(e.target.value)}
               />
@@ -199,7 +199,7 @@ export const LoginForm = () => {
               <label className="block text-xs font-medium text-zinc-400 mb-1">Código de 6 dígitos</label>
               <input
                 type="text" required maxLength={6}
-                className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-center tracking-[0.5em] text-lg text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors "
+                className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-center tracking-[0.5em] text-lg text-white placeholder-zinc-600 focus:outline-none focus:border-sifto-cobalt transition-colors "
                 placeholder="000000"
                 value={verificationCode} onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, ''))}
               />
@@ -221,7 +221,7 @@ export const LoginForm = () => {
               <label className="block text-xs font-medium text-zinc-400 mb-1">Nova Senha</label>
               <input
                 type="password" required minLength={6}
-                className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors "
+                className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-sifto-cobalt transition-colors "
                 placeholder="••••••••"
                 value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
               />

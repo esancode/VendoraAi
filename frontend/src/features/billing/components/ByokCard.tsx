@@ -62,7 +62,7 @@ export const ByokCard: React.FC = () => {
             <div className="flex items-center justify-between mt-4">
               <div className="flex items-center">
                 {hasKey || isSaved ? (
-                  <span className="text-xs text-emerald-400 flex items-center gap-1.5 bg-emerald-400/10 px-2 py-1 border border-emerald-400/20 rounded-sm">
+                  <span className="text-xs text-sifto-cobalt-light flex items-center gap-1.5 bg-sifto-cobalt-light/10 px-2 py-1 border border-sifto-cobalt-light/20 rounded-sm">
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>

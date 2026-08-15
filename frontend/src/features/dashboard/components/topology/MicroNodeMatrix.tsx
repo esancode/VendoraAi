@@ -13,11 +13,11 @@ const MicroNode: React.FC<MicroNodeProps> = ({ agent, status, lastLog }) => {
 
   switch (status) {
     case 'THINKING':
-      statusDotClass = 'bg-emerald-500 animate-pulse';
+      statusDotClass = 'bg-sifto-sla-success animate-pulse';
       statusText = 'thinking';
       break;
     case 'TYPING':
-      statusDotClass = 'bg-emerald-500 animate-[ping_0.8s_cubic-bezier(0,0,0.2,1)_infinite]';
+      statusDotClass = 'bg-sifto-sla-success animate-[ping_0.8s_cubic-bezier(0,0,0.2,1)_infinite]';
       statusText = 'typing';
       break;
     case 'HUMAN_REQUIRED':

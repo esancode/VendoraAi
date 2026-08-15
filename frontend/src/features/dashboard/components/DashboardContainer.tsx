@@ -60,7 +60,7 @@ export const DashboardContainer: React.FC = () => {
               <p className="text-xs text-zinc-500 mt-1 uppercase tracking-wider">Monitoramento Passivo em Tempo Real</p>
             </div>
             <div className="flex items-center gap-2">
-              <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500'}`} />
+              <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-sifto-cobalt animate-pulse' : 'bg-rose-500'}`} />
               <span className="text-xs text-zinc-500 uppercase tracking-wider">
                 {isConnected ? 'SISTEMA ONLINE' : 'SISTEMA OFFLINE'}
               </span>

@@ -103,12 +103,12 @@ export const ActionBar: React.FC<ActionBarProps> = ({ leadId, draftContent, setD
             onClick={handleToggleAutonomy}
             disabled={toggleAutonomyMutation.isPending}
             className="flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-white disabled:opacity-50"
-            style={{ color: isManualRequired ? '#94a3b8' : '#34d399' }} // zinc-400 or emerald-400
+            style={{ color: isManualRequired ? '#94a3b8' : '#34d399' }} // zinc-400 or sifto-cobalt-light
           >
             {isManualRequired ? (
               <ToggleLeft className="w-6 h-6 text-zinc-500" />
             ) : (
-              <ToggleRight className="w-6 h-6 text-emerald-500" />
+              <ToggleRight className="w-6 h-6 text-sifto-cobalt" />
             )}
             {isManualRequired ? 'IA Pausada' : 'IA Ativa'}
           </button>
@@ -118,7 +118,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({ leadId, draftContent, setD
         <button
           onClick={() => generateDraftMutation.mutate()}
           disabled={generateDraftMutation.isPending}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:border-emerald-500/50 hover:text-emerald-400 text-zinc-400 text-sm font-medium rounded-sm transition-all"
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:border-sifto-cobalt/50 hover:text-sifto-cobalt-light text-zinc-400 text-sm font-medium rounded-sm transition-all"
         >
           {generateDraftMutation.isPending ? (
             <Loader2 className="w-4 h-4 animate-spin" />

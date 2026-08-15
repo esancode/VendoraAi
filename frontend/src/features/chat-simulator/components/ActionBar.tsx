@@ -88,12 +88,12 @@ export const ActionBar: React.FC<ActionBarProps> = ({ leadId, draftContent, setD
             onClick={handleToggleAutonomy}
             disabled={toggleAutonomyMutation.isPending}
             className="flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-white disabled:opacity-50"
-            style={{ color: isManualRequired ? '#94a3b8' : '#34d399' }} // zinc-400 or emerald-400
+            style={{ color: isManualRequired ? '#94a3b8' : '#34d399' }} // zinc-400 or sifto-cobalt-light
           >
             {isManualRequired ? (
               <ToggleLeft className="w-6 h-6 text-zinc-500" />
             ) : (
-              <ToggleRight className="w-6 h-6 text-emerald-500" />
+              <ToggleRight className="w-6 h-6 text-sifto-cobalt" />
             )}
             {isManualRequired ? 'IA Pausada' : 'IA Ativa'}
           </button>

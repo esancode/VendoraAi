@@ -21,8 +21,8 @@ export const Sidebar = () => {
     <aside className="hidden md:flex w-64 flex-col bg-zinc-950 border-r border-zinc-800 h-screen sticky top-0">
       <div className="p-6">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded bg-sifto-cobalt flex items-center justify-center">
-            <span className="text-white font-bold text-xl">S</span>
+          <div className="w-8 h-8 rounded overflow-hidden flex items-center justify-center">
+            <img src="/favicon.png" alt="Sifto" className="w-full h-full object-cover" />
           </div>
           <span className="text-xl font-bold text-zinc-100 tracking-tight">Sifto</span>
         </div>
@@ -37,7 +37,7 @@ export const Sidebar = () => {
               cn(
                 'flex items-center gap-3 px-4 py-3 rounded transition-all duration-200 text-sm font-medium',
                 isActive
-                  ? 'bg-emerald-500/10 text-emerald-400'
+                  ? 'bg-sifto-cobalt/10 text-sifto-cobalt-light'
                   : 'text-zinc-500 hover:bg-zinc-900/50 hover:text-zinc-300'
               )
             }
@@ -64,7 +64,7 @@ export const Sidebar = () => {
             </div>
           </div>
           <div className="flex items-center">
-            <Link to="/settings/billing" className="text-zinc-500 hover:text-emerald-400 transition-colors p-2 rounded-sm hover:bg-zinc-900" title="Assinatura & Planos">
+            <Link to="/settings/billing" className="text-zinc-500 hover:text-sifto-cobalt-light transition-colors p-2 rounded-sm hover:bg-zinc-900" title="Assinatura & Planos">
               <span className="sr-only">Faturamento</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
             </Link>

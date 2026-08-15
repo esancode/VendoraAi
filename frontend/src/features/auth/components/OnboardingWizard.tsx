@@ -112,7 +112,7 @@ export const OnboardingWizard = () => {
                 <label className="block text-xs font-semibold mb-1">Nome da Empresa</label>
                 <input
                   {...register('companyName')}
-                  className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-sifto-cobalt transition-colors"
                   placeholder="Sua Empresa Ltda"
                 />
                 {errors.companyName && <p className="text-rose-500 text-[10px] mt-1">{errors.companyName.message}</p>}
@@ -122,7 +122,7 @@ export const OnboardingWizard = () => {
                 <label className="block text-xs font-semibold mb-1">Setor de Vendas</label>
                 <select 
                   {...register('industry')}
-                  className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-sifto-cobalt transition-colors"
                 >
                   <option value="">Selecione...</option>
                   <option value="varejo">Varejo</option>
@@ -149,7 +149,7 @@ export const OnboardingWizard = () => {
                 <label className="block text-xs font-semibold mb-1">Nome Completo</label>
                 <input
                   {...register('adminName')}
-                  className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-sifto-cobalt transition-colors"
                   placeholder="João Silva"
                 />
                 {errors.adminName && <p className="text-rose-500 text-[10px] mt-1">{errors.adminName.message}</p>}
@@ -160,7 +160,7 @@ export const OnboardingWizard = () => {
                 <input
                   type="email"
                   {...register('adminEmail')}
-                  className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-sifto-cobalt transition-colors"
                   placeholder="joao@empresa.com"
                 />
                 {errors.adminEmail && <p className="text-rose-500 text-[10px] mt-1">{errors.adminEmail.message}</p>}
@@ -170,7 +170,7 @@ export const OnboardingWizard = () => {
                 <label className="block text-xs font-semibold mb-1">Telefone</label>
                 <input
                   {...register('adminPhone')}
-                  className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-sifto-cobalt transition-colors"
                   placeholder="(11) 99999-9999"
                 />
                 {errors.adminPhone && <p className="text-rose-500 text-[10px] mt-1">{errors.adminPhone.message}</p>}
@@ -182,7 +182,7 @@ export const OnboardingWizard = () => {
                   <input
                     type="password"
                     {...register('password')}
-                    className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                    className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-sifto-cobalt transition-colors"
                     placeholder="••••••"
                   />
                   {errors.password && <p className="text-rose-500 text-[10px] mt-1">{errors.password.message}</p>}
@@ -192,7 +192,7 @@ export const OnboardingWizard = () => {
                   <input
                     type="password"
                     {...register('confirmPassword')}
-                    className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                    className="w-full px-4 py-2 bg-[#09090B] border border-zinc-800 rounded-sm text-sm focus:outline-none focus:border-sifto-cobalt transition-colors"
                     placeholder="••••••"
                   />
                   {errors.confirmPassword && <p className="text-rose-500 text-[10px] mt-1">{errors.confirmPassword.message}</p>}
@@ -210,7 +210,7 @@ export const OnboardingWizard = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-[2] py-3 flex justify-center items-center bg-emerald-600 hover:bg-emerald-500 text-white rounded-sm text-sm font-bold transition-colors disabled:opacity-50"
+                  className="flex-[2] py-3 flex justify-center items-center bg-sifto-cobalt-dark hover:bg-sifto-cobalt text-white rounded-sm text-sm font-bold transition-colors disabled:opacity-50"
                 >
                   {isSubmitting ? <Spinner size="sm" /> : 'Finalizar Cadastro'}
                 </button>
@@ -223,7 +223,7 @@ export const OnboardingWizard = () => {
           Já tem uma conta?{' '}
           <button 
             onClick={() => navigate('/login')}
-            className="font-medium text-emerald-500 hover:text-emerald-400 transition-colors"
+            className="font-medium text-sifto-cobalt hover:text-sifto-cobalt-light transition-colors"
           >
             Faça Login
           </button>

@@ -67,8 +67,8 @@ export const MessageList: React.FC<MessageListProps> = ({ leadId }) => {
             )}
           >
             {isAI && (
-              <span className="flex items-center text-[10px] font-bold text-emerald-400 mb-1 ml-1 mr-1 uppercase tracking-wider bg-emerald-400/10 px-1.5 py-0.5 rounded border border-emerald-400/20">
-                <Zap className="w-3 h-3 mr-0.5 fill-emerald-400" /> IA
+              <span className="flex items-center text-[10px] font-bold text-sifto-cobalt-light mb-1 ml-1 mr-1 uppercase tracking-wider bg-sifto-cobalt-light/10 px-1.5 py-0.5 rounded border border-sifto-cobalt-light/20">
+                <Zap className="w-3 h-3 mr-0.5 fill-sifto-cobalt-light" /> IA
               </span>
             )}
             

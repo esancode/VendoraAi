@@ -35,8 +35,8 @@ export const SwarmDensityView: React.FC<SwarmDensityViewProps> = ({ agents, stat
           {agents.map(agent => {
             const status = statuses[agent.id] || 'IDLE';
             let cellClass = 'bg-zinc-800';
-            if (status === 'THINKING') cellClass = 'bg-emerald-500 animate-pulse';
-            if (status === 'TYPING') cellClass = 'bg-emerald-400 animate-[ping_0.8s_cubic-bezier(0,0,0.2,1)_infinite]';
+            if (status === 'THINKING') cellClass = 'bg-sifto-sla-success animate-pulse';
+            if (status === 'TYPING') cellClass = 'bg-sifto-sla-success animate-[ping_0.8s_cubic-bezier(0,0,0.2,1)_infinite]';
             if (status === 'HUMAN_REQUIRED') cellClass = 'bg-rose-500';
 
             return (
@@ -61,7 +61,7 @@ export const SwarmDensityView: React.FC<SwarmDensityViewProps> = ({ agents, stat
             <div key={log.id} className="leading-tight mb-1 hover:bg-zinc-900/50 p-0.5 -mx-0.5">
               <span className="text-zinc-600">[{log.timestamp}]</span>{' '}
               <span className="text-sifto-cobalt-light">[{log.agentId?.substring(0, 8) || 'SYS'}]</span>{' '}
-              <span className="text-emerald-700">[{log.level}]</span>{' '}
+              <span className="text-sifto-sla-success">[{log.level}]</span>{' '}
               <span className="text-zinc-400">{log.message}</span>
             </div>
           ))}
@@ -75,7 +75,7 @@ export const SwarmDensityView: React.FC<SwarmDensityViewProps> = ({ agents, stat
           <div className="flex items-center justify-between p-4 border-b border-zinc-800">
             <div className="flex flex-col">
               <span className="text-sm text-zinc-300">NODE_INSPECTION</span>
-              <span className="text-xs text-emerald-500">{selectedAgentStatus}</span>
+              <span className="text-xs text-sifto-sla-success">{selectedAgentStatus}</span>
             </div>
             <button onClick={() => setSelectedAgentId(null)} className="text-zinc-500 hover:text-white">
               <X className="w-4 h-4" />

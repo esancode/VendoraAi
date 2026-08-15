@@ -259,7 +259,7 @@ export const AgentSettings = () => {
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-12">
       <header>
-        <div className="flex items-center gap-3 text-emerald-400 mb-2">
+        <div className="flex items-center gap-3 text-sifto-cobalt-light mb-2">
           <Bot className="w-8 h-8" />
           <h1 className="text-2xl font-bold text-white tracking-tight">Canais e Agentes IA</h1>
         </div>
@@ -271,7 +271,7 @@ export const AgentSettings = () => {
       {/* Canais de Atendimento */}
       <section className="bg-zinc-950 border border-zinc-800 rounded-md p-6 ">
         <h2 className="text-xl font-bold text-zinc-300 mb-6 flex items-center gap-2">
-          <Phone className="w-6 h-6 text-emerald-400" />
+          <Phone className="w-6 h-6 text-sifto-cobalt-light" />
           Canais de Atendimento (WhatsApp)
         </h2>
         
@@ -284,19 +284,19 @@ export const AgentSettings = () => {
               placeholder="Nome do Canal (Ex: WhatsApp Suporte)"
               value={newChannelName}
               onChange={(e) => setNewChannelName(e.target.value)}
-              className="w-full bg-black border border-zinc-800 rounded px-4 py-2 text-zinc-300 focus:border-emerald-500"
+              className="w-full bg-black border border-zinc-800 rounded px-4 py-2 text-zinc-300 focus:border-sifto-cobalt"
             />
             <input
               type="text"
               placeholder="Número (Ex: 5511999999999)"
               value={newPhoneNumber}
               onChange={(e) => setNewPhoneNumber(e.target.value)}
-              className="w-full bg-black border border-zinc-800 rounded px-4 py-2 text-zinc-300 focus:border-emerald-500"
+              className="w-full bg-black border border-zinc-800 rounded px-4 py-2 text-zinc-300 focus:border-sifto-cobalt"
             />
             <select
               value={newAgentId}
               onChange={(e) => setNewAgentId(e.target.value)}
-              className="w-full bg-black border border-zinc-800 rounded px-4 py-2 text-zinc-300 focus:border-emerald-500"
+              className="w-full bg-black border border-zinc-800 rounded px-4 py-2 text-zinc-300 focus:border-sifto-cobalt"
             >
               <option value="">-- Modo Manual (Sem Agente) --</option>
               {agents?.map(ag => (
@@ -315,7 +315,7 @@ export const AgentSettings = () => {
                 });
               }}
               disabled={createChannelMutation.isPending}
-              className="w-full flex justify-center items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded"
+              className="w-full flex justify-center items-center gap-2 bg-sifto-cobalt-dark hover:bg-sifto-cobalt text-white py-2 rounded"
             >
               {createChannelMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
               Salvar e Conectar
@@ -335,7 +335,7 @@ export const AgentSettings = () => {
                       <span className="font-semibold text-zinc-300 flex items-center gap-2">
                         {channel.name}
                         <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                          channel.connectionStatus === 'CONNECTED' ? 'bg-emerald-500/20 text-emerald-400' :
+                          channel.connectionStatus === 'CONNECTED' ? 'bg-sifto-cobalt/20 text-sifto-cobalt-light' :
                           channel.connectionStatus === 'CONNECTING' ? 'bg-amber-500/20 text-amber-400' :
                           'bg-zinc-700 text-zinc-400'
                         }`}>
@@ -371,7 +371,7 @@ export const AgentSettings = () => {
                       ) : (
                         <button
                           onClick={() => connectChannelMutation.mutate(channel.id)}
-                          className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded"
+                          className="bg-sifto-cobalt-dark hover:bg-sifto-cobalt text-white text-xs px-3 py-1.5 rounded"
                           disabled={connectChannelMutation.isPending}
                         >
                           Conectar
@@ -505,7 +505,7 @@ export const AgentSettings = () => {
             <div className="space-y-6">
               <div className="bg-black border border-zinc-800 rounded p-5">
                 <h3 className="text-sm font-semibold text-zinc-500 uppercase mb-4 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-emerald-400" />
+                  <Sparkles className="w-4 h-4 text-sifto-cobalt-light" />
                   Adicionar Exemplo (Few-Shot)
                 </h3>
                 <form onSubmit={(e) => {
@@ -528,7 +528,7 @@ export const AgentSettings = () => {
                   <button
                     type="submit"
                     disabled={addExampleMutation.isPending}
-                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-4 py-2 rounded transition-colors text-sm"
+                    className="w-full bg-sifto-cobalt-dark hover:bg-sifto-cobalt text-white font-medium px-4 py-2 rounded transition-colors text-sm"
                   >
                     Cadastrar Exemplo
                   </button>
@@ -545,7 +545,7 @@ export const AgentSettings = () => {
                       <Trash2 className="w-4 h-4" />
                     </button>
                     <p className="text-xs text-zinc-500 mb-1">U: "{ex.userQuery}"</p>
-                    <p className="text-xs text-emerald-400/80">IA: "{ex.expectedResponse}"</p>
+                    <p className="text-xs text-sifto-cobalt-light/80">IA: "{ex.expectedResponse}"</p>
                   </div>
                 ))}
               </div>
@@ -581,10 +581,10 @@ export const AgentSettings = () => {
               </div>
             ) : isSuccess ? (
               <div className="flex flex-col items-center justify-center py-8 space-y-4">
-                <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center animate-bounce">
-                  <CheckCircle2 className="w-10 h-10 text-emerald-500" />
+                <div className="w-20 h-20 bg-sifto-cobalt/20 rounded-full flex items-center justify-center animate-bounce">
+                  <CheckCircle2 className="w-10 h-10 text-sifto-cobalt" />
                 </div>
-                <p className="text-emerald-400 font-medium text-center">Conectado com sucesso!</p>
+                <p className="text-sifto-cobalt-light font-medium text-center">Conectado com sucesso!</p>
               </div>
             ) : qrCodeData ? (
               <div className="flex flex-col items-center space-y-4 py-4">
@@ -597,7 +597,7 @@ export const AgentSettings = () => {
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-12 space-y-4">
-                <Loader2 className="w-10 h-10 animate-spin text-emerald-500" />
+                <Loader2 className="w-10 h-10 animate-spin text-sifto-cobalt" />
                 <p className="text-zinc-500 text-sm">Gerando QR Code...</p>
               </div>
             )}

@@ -22,7 +22,7 @@ export const BottomNav = () => {
                 cn(
                   'flex flex-col items-center justify-center h-full w-full space-y-1 min-h-[44px]',
                   isActive
-                    ? 'text-emerald-400'
+                    ? 'text-sifto-cobalt-light'
                     : 'text-zinc-500 hover:text-zinc-400'
                 )
               }

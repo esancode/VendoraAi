@@ -21,11 +21,11 @@ export const InspectorNode: React.FC<InspectorNodeProps> = ({ agent, status, log
 
   switch (status) {
     case 'THINKING':
-      statusDotClass = 'bg-emerald-500 animate-pulse';
+      statusDotClass = 'bg-sifto-sla-success animate-pulse';
       statusText = 'thinking';
       break;
     case 'TYPING':
-      statusDotClass = 'bg-emerald-500 animate-[ping_0.8s_cubic-bezier(0,0,0.2,1)_infinite]';
+      statusDotClass = 'bg-sifto-sla-success animate-[ping_0.8s_cubic-bezier(0,0,0.2,1)_infinite]';
       statusText = 'typing';
       break;
     case 'HUMAN_REQUIRED':
@@ -84,7 +84,7 @@ export const InspectorNode: React.FC<InspectorNodeProps> = ({ agent, status, log
             <path
               d={generateSparkline()}
               fill="none"
-              className="stroke-emerald-600"
+              className="stroke-sifto-sla-success"
               strokeWidth="1"
               vectorEffect="non-scaling-stroke"
             />

@@ -22,7 +22,7 @@ export const BillingDashboard: React.FC = () => {
             ) : (
               <>
                 <p className="text-2xl font-semibold text-white tracking-tight">{billing?.plan || 'STARTER'}</p>
-                <p className="text-sm text-zinc-500 mt-1">Status: <span className={billing?.billingStatus === 'TRIAL' ? 'text-amber-400' : 'text-emerald-400'}>{billing?.billingStatus === 'TRIAL' ? 'TESTE GRATUITO' : 'Ativo'}</span></p>
+                <p className="text-sm text-zinc-500 mt-1">Status: <span className={billing?.billingStatus === 'TRIAL' ? 'text-amber-400' : 'text-sifto-cobalt-light'}>{billing?.billingStatus === 'TRIAL' ? 'TESTE GRATUITO' : 'Ativo'}</span></p>
                 {billing?.billingStatus === 'TRIAL' && (
                   <p className="text-xs text-zinc-600 mt-1">
                     Expira em {billing?.daysRemaining || 0} dias

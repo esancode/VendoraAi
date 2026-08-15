@@ -21,7 +21,7 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead, isActive, onClick }) =
   const remainingSeconds = differenceInSeconds(slaLimitAt, now);
   const isBreached = remainingSeconds < 0;
 
-  let timerColor = 'text-emerald-500';
+  let timerColor = 'text-sifto-sla-success';
   if (remainingSeconds < 5 * 60) {
     timerColor = 'text-rose-500';
   } else if (remainingSeconds < 15 * 60) {

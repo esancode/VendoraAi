@@ -35,7 +35,7 @@ export const AuthSuccess = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#09090B]">
       <div className="flex flex-col items-center gap-4">
-        <Spinner size="lg" className="text-emerald-500" />
+        <Spinner size="lg" className="text-sifto-cobalt" />
         <p className="text-zinc-400 text-sm tracking-widest uppercase">Autenticando...</p>
       </div>
     </div>

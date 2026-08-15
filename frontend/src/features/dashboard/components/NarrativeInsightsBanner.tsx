@@ -24,12 +24,12 @@ export const NarrativeInsightsBanner: React.FC = () => {
   return (
     <div className="w-full border border-zinc-800 rounded-sm bg-[#09090b] p-6">
       <p className="text-zinc-100 text-base md:text-lg leading-relaxed font-sans">
-        Olá, <strong className="text-emerald-500 font-medium">{insights.managerName}</strong>. 
-        Seu tempo médio de resposta útil hoje está em <strong className="text-emerald-500 font-medium">{insights.avgSlaMinutes} minutos</strong>. 
-        Identificamos <strong className="text-emerald-500 font-medium">{insights.coolingLeads} leads esfriando</strong> sem resposta humana na fila. 
-        Seu maior vazamento de faturamento esta semana são as <strong className="text-emerald-500 font-medium">{insights.topLossReason}</strong>, 
-        que representam <strong className="text-emerald-500 font-medium">{insights.topLossPercentage}% das suas perdas</strong>, 
-        acumulando um prejuízo estimado de <strong className="text-emerald-500 font-medium">{formatCurrency(insights.estimatedLossBrl)}</strong>.
+        Olá, <strong className="text-sifto-cobalt font-medium">{insights.managerName}</strong>. 
+        Seu tempo médio de resposta útil hoje está em <strong className="text-sifto-cobalt font-medium">{insights.avgSlaMinutes} minutos</strong>. 
+        Identificamos <strong className="text-sifto-cobalt font-medium">{insights.coolingLeads} leads esfriando</strong> sem resposta humana na fila. 
+        Seu maior vazamento de faturamento esta semana são as <strong className="text-sifto-cobalt font-medium">{insights.topLossReason}</strong>, 
+        que representam <strong className="text-sifto-cobalt font-medium">{insights.topLossPercentage}% das suas perdas</strong>, 
+        acumulando um prejuízo estimado de <strong className="text-sifto-cobalt font-medium">{formatCurrency(insights.estimatedLossBrl)}</strong>.
       </p>
     </div>
   );

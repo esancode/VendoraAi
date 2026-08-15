@@ -91,7 +91,7 @@ export const DashboardWhatsAppSetup: React.FC = () => {
                 placeholder="Ex: 5511999999999"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
-                className="w-full bg-black border border-zinc-800 rounded-sm px-4 py-3 text-sm text-zinc-300 focus:outline-none focus:border-emerald-500/50"
+                className="w-full bg-black border border-zinc-800 rounded-sm px-4 py-3 text-sm text-zinc-300 focus:outline-none focus:border-sifto-cobalt/50"
               />
             </div>
             <button
@@ -119,10 +119,10 @@ export const DashboardWhatsAppSetup: React.FC = () => {
               </div>
             ) : isSuccess ? (
               <div className="flex flex-col items-center gap-3">
-                <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center">
-                  <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                <div className="w-16 h-16 bg-sifto-cobalt/10 rounded-full flex items-center justify-center">
+                  <CheckCircle2 className="w-8 h-8 text-sifto-cobalt" />
                 </div>
-                <p className="text-emerald-500 text-sm font-medium">Autenticado com sucesso!</p>
+                <p className="text-sifto-cobalt text-sm font-medium">Autenticado com sucesso!</p>
               </div>
             ) : qrCodeData ? (
               <div className="flex flex-col items-center gap-4">

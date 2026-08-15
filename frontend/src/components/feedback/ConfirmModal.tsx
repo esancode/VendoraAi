@@ -59,7 +59,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
               "px-4 py-2 text-sm font-medium text-white rounded-sm transition-colors",
               isDestructive 
                 ? "bg-rose-600 hover:bg-rose-500" 
-                : "bg-emerald-600 hover:bg-emerald-500"
+                : "bg-sifto-cobalt-dark hover:bg-sifto-cobalt"
             )}
           >
             {confirmText}
