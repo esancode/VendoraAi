@@ -104,7 +104,7 @@ export const LoginForm = () => {
       <div className="w-full max-w-sm p-8 bg-[#000000] rounded-sm border border-zinc-800 shadow-2xl">
         
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-white tracking-tight ">VendoraAI</h2>
+          <h2 className="text-2xl font-bold text-white tracking-tight ">Sifto</h2>
           <p className="mt-2 text-xs text-zinc-500 ">
             {currentView === 'SIGN_IN' && 'Acesse seu workspace'}
             {currentView === 'FORGOT_PASSWORD' && 'Recuperação de conta'}

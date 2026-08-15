@@ -21,10 +21,10 @@ export const Sidebar = () => {
     <aside className="hidden md:flex w-64 flex-col bg-zinc-950 border-r border-zinc-800 h-screen sticky top-0">
       <div className="p-6">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded bg-emerald-500 flex items-center justify-center">
-            <span className="text-white font-bold text-xl">V</span>
+          <div className="w-8 h-8 rounded bg-sifto-cobalt flex items-center justify-center">
+            <span className="text-white font-bold text-xl">S</span>
           </div>
-          <span className="text-xl font-bold text-zinc-100 tracking-tight">VendoraAI</span>
+          <span className="text-xl font-bold text-zinc-100 tracking-tight">Sifto</span>
         </div>
       </div>
 
@@ -60,7 +60,7 @@ export const Sidebar = () => {
             )}
             <div className="flex flex-col max-w-[120px]">
               <p className="text-sm font-medium text-zinc-300 truncate" title={user?.name}>{user?.name || 'Admin'}</p>
-              <p className="text-xs text-zinc-500 truncate" title={user?.email}>{user?.email || 'admin@vendora.ai'}</p>
+              <p className="text-xs text-zinc-500 truncate" title={user?.email}>{user?.email || 'admin@sifto.ai'}</p>
             </div>
           </div>
           <div className="flex items-center">

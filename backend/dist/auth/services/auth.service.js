@@ -18,7 +18,6 @@ const password_hasher_service_1 = require("./password-hasher.service");
 const redis_service_1 = require("../../common/services/redis.service");
 const mail_service_1 = require("../../common/services/mail.service");
 const crypto_1 = require("crypto");
-const client_1 = require("@prisma/client");
 let AuthService = AuthService_1 = class AuthService {
     prisma;
     jwtService;
@@ -115,13 +114,12 @@ let AuthService = AuthService_1 = class AuthService {
     }
     async googleLogin(profile) {
         const { email, fullName, avatarUrl } = profile;
-        const redisClient = this.redisService.getClient();
-        let user = await this.prisma.user.findUnique({
-            where: { email },
-            include: { tenant: true },
-        });
-        if (!user) {
-            user = await this.prisma.$transaction(async (prisma) => {
+        return await this.prisma.runInTenantContext('', async (prisma) => {
+            let user = await prisma.user.findUnique({
+                where: { email },
+                include: { tenant: true },
+            });
+            if (!user) {
                 const tenant = await prisma.tenant.create({
                     data: {
                         name: `Empresa de ${fullName}`,
@@ -133,40 +131,41 @@ let AuthService = AuthService_1 = class AuthService {
                         aiDraftsProcessedThisMonth: 0,
                     },
                 });
-                return await prisma.user.create({
+                await prisma.$executeRawUnsafe(`SET LOCAL app.current_tenant_id = '${tenant.id}';`);
+                user = await prisma.user.create({
                     data: {
                         email,
                         name: fullName,
                         passwordHash: 'oauth_managed',
                         avatarUrl,
-                        role: client_1.UserRole.ADMIN,
+                        role: 'ADMIN',
                         tenantId: tenant.id,
                         status: 'ACTIVE',
                     },
                     include: { tenant: true },
                 });
-            });
-        }
-        else {
-            if (avatarUrl && user.avatarUrl !== avatarUrl) {
-                user = await this.prisma.user.update({
-                    where: { id: user.id },
-                    data: { avatarUrl },
-                    include: { tenant: true }
-                });
             }
-            if (user.status === 'LOCKED') {
-                throw new common_1.UnauthorizedException('Conta bloqueada por segurança.');
+            else {
+                if (avatarUrl && user.avatarUrl !== avatarUrl) {
+                    user = await prisma.user.update({
+                        where: { id: user.id },
+                        data: { avatarUrl },
+                        include: { tenant: true }
+                    });
+                }
+                if (user.status === 'LOCKED') {
+                    throw new common_1.UnauthorizedException('Conta bloqueada por segurança.');
+                }
+                if (user.status === 'PENDING_VERIFICATION') {
+                    user = await prisma.user.update({
+                        where: { id: user.id },
+                        data: { status: 'ACTIVE' },
+                        include: { tenant: true }
+                    });
+                }
             }
-            if (user.status === 'PENDING_VERIFICATION') {
-                user = await this.prisma.user.update({
-                    where: { id: user.id },
-                    data: { status: 'ACTIVE' },
-                    include: { tenant: true }
-                });
-            }
-        }
-        return this.generateTokensExt(user.id, user.tenantId, user.role, user.name);
+            return this.generateTokensExt(user.id, user.tenantId, user.role, user.name);
+        });
     }
     async verifyCode(email, code) {
         email = email.toLowerCase().trim();

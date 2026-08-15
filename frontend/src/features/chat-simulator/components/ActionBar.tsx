@@ -106,7 +106,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({ leadId, draftContent, setD
           value={draftContent}
           onChange={(e) => setDraftContent(e.target.value)}
           placeholder="Digite sua mensagem ou use um rascunho da IA..."
-          className="w-full bg-zinc-900 border border-zinc-800 rounded p-3 pr-14 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 resize-none min-h-[60px] max-h-[120px]"
+          className="w-full bg-zinc-900 border border-zinc-800 rounded p-3 pr-14 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-sifto-cobalt focus:ring-1 focus:ring-sifto-cobalt resize-none min-h-[60px] max-h-[120px]"
           rows={2}
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -118,7 +118,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({ leadId, draftContent, setD
         <button
           type="submit"
           disabled={!draftContent.trim() || sendMutation.isPending}
-          className="absolute right-2 bottom-2 p-2 bg-indigo-500 hover:bg-indigo-600 disabled:bg-zinc-700 disabled:text-zinc-500 text-white rounded transition-colors"
+          className="absolute right-2 bottom-2 p-2 bg-sifto-cobalt hover:bg-sifto-cobalt-dark disabled:bg-zinc-700 disabled:text-zinc-500 text-white rounded transition-colors"
         >
           {sendMutation.isPending ? (
             <Loader2 className="w-5 h-5 animate-spin" />

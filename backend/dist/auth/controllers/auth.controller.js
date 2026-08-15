@@ -67,7 +67,8 @@ let AuthController = class AuthController {
     async googleAuthRedirect(req, res) {
         const { accessToken, refreshToken, tenantId } = await this.authService.googleLogin(req.user);
         this.setRefreshTokenCookie(res, refreshToken);
-        return { url: `http://localhost:5173/auth-success?token=${accessToken}`, statusCode: 302 };
+        const frontendUrl = this.configService.get('FRONTEND_URL') || 'http://localhost:5173';
+        return { url: `${frontendUrl}/auth-success?token=${accessToken}`, statusCode: 302 };
     }
     async refresh(req, res) {
         const refreshToken = req.cookies['refresh_token'];
@@ -92,15 +93,15 @@ let AuthController = class AuthController {
             await this.authService.logout(tenantContext.userId, tenantContext.tenantId, refreshToken);
         }
         res.clearCookie('refresh_token', {
-            path: '/api/v1/auth/refresh',
+            path: '/',
         });
     }
     setRefreshTokenCookie(res, refreshToken) {
         res.setCookie('refresh_token', refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            path: '/api/v1/auth/refresh',
+            sameSite: 'none',
+            path: '/',
             maxAge: 7 * 24 * 60 * 60,
         });
     }

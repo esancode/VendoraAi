@@ -16,10 +16,20 @@ require("dotenv/config");
 let IdempotencyService = class IdempotencyService {
     redisClient;
     onModuleInit() {
-        this.redisClient = new ioredis_1.default({
-            host: process.env.REDIS_HOST || 'localhost',
-            port: parseInt(process.env.REDIS_PORT || '6379', 10),
-            db: 2,
+        const redisUrl = process.env.REDIS_URL;
+        if (redisUrl) {
+            this.redisClient = new ioredis_1.default(redisUrl, { maxRetriesPerRequest: null });
+        }
+        else {
+            this.redisClient = new ioredis_1.default({
+                host: process.env.REDIS_HOST || 'localhost',
+                port: parseInt(process.env.REDIS_PORT || '6379', 10),
+                db: 2,
+                maxRetriesPerRequest: null,
+            });
+        }
+        this.redisClient.on('error', (err) => {
+            console.error('[IdempotencyService] Redis Error:', err.message);
         });
     }
     onModuleDestroy() {

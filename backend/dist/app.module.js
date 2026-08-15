@@ -29,6 +29,7 @@ const billing_guard_1 = require("./common/guards/billing.guard");
 const core_1 = require("@nestjs/core");
 const schedule_1 = require("@nestjs/schedule");
 const chats_module_1 = require("./chats/chats.module");
+const ioredis_1 = require("ioredis");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -40,11 +41,13 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             schedule_1.ScheduleModule.forRoot(),
             bullmq_1.BullModule.forRoot({
-                connection: {
-                    host: process.env.REDIS_HOST || 'localhost',
-                    port: parseInt(process.env.REDIS_PORT || '6379', 10),
-                    db: 1,
-                },
+                connection: process.env.REDIS_URL
+                    ? new ioredis_1.Redis(process.env.REDIS_URL, { maxRetriesPerRequest: null })
+                    : {
+                        host: process.env.REDIS_HOST || 'localhost',
+                        port: parseInt(process.env.REDIS_PORT || '6379', 10),
+                        db: 1,
+                    },
             }),
             webhooks_module_1.WebhooksModule,
             intelligence_module_1.IntelligenceModule,

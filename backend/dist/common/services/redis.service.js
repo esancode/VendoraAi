@@ -14,17 +14,24 @@ let RedisService = RedisService_1 = class RedisService {
     logger = new common_1.Logger(RedisService_1.name);
     client;
     onModuleInit() {
-        this.client = new ioredis_1.Redis({
-            host: process.env.REDIS_HOST || '127.0.0.1',
-            port: Number(process.env.REDIS_PORT) || 6379,
-            password: process.env.REDIS_PASSWORD || undefined,
-            db: 0,
-        });
-        this.client.on('error', (err) => {
-            this.logger.error('Erro na conexão com Redis:', err);
-        });
+        const redisUrl = process.env.REDIS_URL;
+        if (redisUrl) {
+            this.client = new ioredis_1.Redis(redisUrl, { maxRetriesPerRequest: null });
+        }
+        else {
+            this.client = new ioredis_1.Redis({
+                host: process.env.REDIS_HOST || '127.0.0.1',
+                port: Number(process.env.REDIS_PORT) || 6379,
+                password: process.env.REDIS_PASSWORD || undefined,
+                db: 0,
+                maxRetriesPerRequest: null,
+            });
+        }
         this.client.on('connect', () => {
             this.logger.log('Conectado ao Redis com sucesso.');
+        });
+        this.client.on('error', (err) => {
+            this.logger.error('Erro na conexão com Redis:', err.message);
         });
     }
     onModuleDestroy() {

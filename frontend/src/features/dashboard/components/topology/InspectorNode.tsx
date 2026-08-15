@@ -67,7 +67,7 @@ export const InspectorNode: React.FC<InspectorNodeProps> = ({ agent, status, log
           {logs.map((log) => (
             <div key={log.id} className="leading-relaxed mb-2 hover:bg-zinc-900/50 p-1 -mx-1 rounded-sm">
               <span className="text-zinc-600">[{log.timestamp}]</span>{' '}
-              <span className="text-indigo-400">[{log.level}]</span>{' '}
+              <span className="text-sifto-cobalt-light">[{log.level}]</span>{' '}
               <span className="text-zinc-400">{log.message}</span>
             </div>
           ))}

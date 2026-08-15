@@ -400,7 +400,7 @@ export const AgentSettings = () => {
       {/* Nossos Agentes */}
       <section className="bg-zinc-950 border border-zinc-800 rounded-md p-6 ">
         <h2 className="text-xl font-bold text-zinc-300 mb-6 flex items-center gap-2">
-          <Bot className="w-6 h-6 text-indigo-400" />
+          <Bot className="w-6 h-6 text-sifto-cobalt-light" />
           Nossos Agentes
         </h2>
         
@@ -410,7 +410,7 @@ export const AgentSettings = () => {
             placeholder="Nome do novo Agente"
             value={newAgentName}
             onChange={(e) => setNewAgentName(e.target.value)}
-            className="w-64 bg-black border border-zinc-800 rounded px-4 py-2 text-zinc-300 focus:border-indigo-500"
+            className="w-64 bg-black border border-zinc-800 rounded px-4 py-2 text-zinc-300 focus:border-sifto-cobalt"
           />
           <button
             onClick={() => {
@@ -418,7 +418,7 @@ export const AgentSettings = () => {
               createAgentMutation.mutate(newAgentName);
             }}
             disabled={createAgentMutation.isPending}
-            className="flex justify-center items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded font-medium"
+            className="flex justify-center items-center gap-2 bg-sifto-cobalt-dark hover:bg-sifto-cobalt text-white px-6 py-2 rounded font-medium"
           >
             <Plus className="w-4 h-4" /> Criar Agente
           </button>
@@ -431,7 +431,7 @@ export const AgentSettings = () => {
               onClick={() => handleSelectAgent(agent)}
               className={`p-4 rounded border text-left transition-all ${
                 selectedAgentId === agent.id 
-                  ? 'bg-indigo-900/40 border-indigo-500 ring-1 ring-indigo-500' 
+                  ? 'bg-sifto-cobalt-deep/40 border-sifto-cobalt ring-1 ring-sifto-cobalt' 
                   : 'bg-black border-zinc-800 hover:border-zinc-800'
               }`}
             >
@@ -446,7 +446,7 @@ export const AgentSettings = () => {
             {/* Form Onboarding Agente */}
             <div>
               <h3 className="text-lg font-semibold text-zinc-300 mb-4 flex items-center gap-2">
-                <Settings className="w-5 h-5 text-indigo-400" />
+                <Settings className="w-5 h-5 text-sifto-cobalt-light" />
                 Parametrização do Agente
               </h3>
               <form onSubmit={(e) => {

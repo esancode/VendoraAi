@@ -33,7 +33,6 @@ let PrismaService = class PrismaService extends client_1.PrismaClient {
     }
     async runInTenantContext(tenantId, op) {
         return this.$transaction(async (tx) => {
-            await tx.$executeRawUnsafe(`SET LOCAL ROLE app_user;`);
             await tx.$executeRawUnsafe(`SET LOCAL app.current_tenant_id = '${tenantId}';`);
             return op(tx);
         });

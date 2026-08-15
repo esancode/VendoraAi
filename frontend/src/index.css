@@ -1,6 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import "tailwindcss";
 @theme {
+  --color-sifto-cobalt: #2563EB;
+  --color-sifto-cobalt-light: #60A5FA;
+  --color-sifto-cobalt-dark: #1D4ED8;
+  --color-sifto-cobalt-deep: #1E3A8A;
+  --color-sifto-cobalt-glow: #172554;
+  --color-sifto-bg: #030712;
+  --color-sifto-bg-card: #0F172A;
+  --color-sifto-bg-border: #1E293B;
+  --color-sifto-text-high: #F8FAFC;
+  --color-sifto-text-muted: #94A3B8;
+  --color-sifto-sla-success: #10B981;
+  --color-sifto-sla-warning: #f59e0b;
+  --color-sifto-sla-critical: #F43F5E;
+  --color-sifto-sla-info: #06B6D4;
   --color-background: #000000; /* pure black */
   --color-card: #09090b; /* zinc-950 */
   --color-card-foreground: #ffffff; /* zinc-50 */

@@ -37,9 +37,9 @@ export const AiCopilotPanel: React.FC<AiCopilotPanelProps> = ({ leadId, onUseDra
 
   return (
     <div className="absolute bottom-full left-0 right-0 mb-4 px-4 pointer-events-none">
-      <div className="bg-zinc-900/90  border border-indigo-500/30 rounded p-4  -indigo-900/20 transform transition-all animate-enter pointer-events-auto">
-        <div className="flex items-center gap-2 mb-2 text-indigo-400">
-          <Lightbulb className="w-5 h-5 fill-indigo-400/20" />
+      <div className="bg-zinc-900/90  border border-sifto-cobalt/30 rounded p-4  shadow-sifto-cobalt-deep/20 transform transition-all animate-enter pointer-events-auto">
+        <div className="flex items-center gap-2 mb-2 text-sifto-cobalt-light">
+          <Lightbulb className="w-5 h-5 fill-sifto-cobalt-light/20" />
           <h4 className="font-semibold text-sm">Sugestão da IA</h4>
         </div>
         
@@ -53,7 +53,7 @@ export const AiCopilotPanel: React.FC<AiCopilotPanelProps> = ({ leadId, onUseDra
               onUseDraft(draftContent);
               setDraftContent(null); // Dismiss after use
             }}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-sifto-cobalt hover:bg-sifto-cobalt-dark text-white text-sm font-medium rounded transition-colors"
           >
             <Copy className="w-4 h-4" />
             Usar Rascunho

@@ -7,11 +7,25 @@ const ioredis_1 = require("ioredis");
 class RedisIoAdapter extends platform_socket_io_1.IoAdapter {
     adapterConstructor;
     async connectToRedis(redisUrl) {
-        const pubClient = new ioredis_1.Redis(redisUrl || process.env.REDIS_URL || 'redis://localhost:6379');
-        const subClient = pubClient.duplicate();
-        pubClient.on('error', (err) => console.error('Redis PubClient Error:', err.message));
-        subClient.on('error', (err) => console.error('Redis SubClient Error:', err.message));
-        this.adapterConstructor = (0, redis_adapter_1.createAdapter)(pubClient, subClient);
+        const url = redisUrl || process.env.REDIS_URL;
+        if (url) {
+            const pubClient = new ioredis_1.Redis(url, { maxRetriesPerRequest: null });
+            const subClient = pubClient.duplicate();
+            pubClient.on('error', (err) => console.error('Redis PubClient Error:', err.message));
+            subClient.on('error', (err) => console.error('Redis SubClient Error:', err.message));
+            this.adapterConstructor = (0, redis_adapter_1.createAdapter)(pubClient, subClient);
+        }
+        else {
+            const pubClient = new ioredis_1.Redis({
+                host: process.env.REDIS_HOST || 'localhost',
+                port: parseInt(process.env.REDIS_PORT || '6379', 10),
+                maxRetriesPerRequest: null
+            });
+            const subClient = pubClient.duplicate();
+            pubClient.on('error', (err) => console.error('Redis PubClient Error:', err.message));
+            subClient.on('error', (err) => console.error('Redis SubClient Error:', err.message));
+            this.adapterConstructor = (0, redis_adapter_1.createAdapter)(pubClient, subClient);
+        }
     }
     createIOServer(port, options) {
         const server = super.createIOServer(port, {

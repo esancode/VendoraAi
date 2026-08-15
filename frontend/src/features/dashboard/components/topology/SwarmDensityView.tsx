@@ -60,7 +60,7 @@ export const SwarmDensityView: React.FC<SwarmDensityViewProps> = ({ agents, stat
           {multiplexedLogs.map((log) => (
             <div key={log.id} className="leading-tight mb-1 hover:bg-zinc-900/50 p-0.5 -mx-0.5">
               <span className="text-zinc-600">[{log.timestamp}]</span>{' '}
-              <span className="text-indigo-400">[{log.agentId?.substring(0, 8) || 'SYS'}]</span>{' '}
+              <span className="text-sifto-cobalt-light">[{log.agentId?.substring(0, 8) || 'SYS'}]</span>{' '}
               <span className="text-emerald-700">[{log.level}]</span>{' '}
               <span className="text-zinc-400">{log.message}</span>
             </div>
